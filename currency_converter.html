@@ -1,0 +1,41 @@
+<form id="currency">
+    <select id="start">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+    </select>
+    <select id="target">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+    </select>
+    <input type="number" id="amount" placeholder="Enter an amount">
+    <button type="submit">Convert</button>
+</form>
+
+<div id="conversionResult">
+    <p>Conversion result: <span id='result'></span></p>
+</div>
+
+<script>
+    const currency = document.getElementById('currency');
+
+    currency.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const start = document.getElementById('start').value;
+            const target = document.getElementById('target').value;
+            const amount = document.getElementById('amount').value;
+            const result = await convertCurrency(start, target, amount);
+            document.getElementById('result').textContent = result;
+        });
+    
+    
+    async function convertCurrency(start, target, amount) {
+        const apiUrl = `https://v6.exchangerate-api.com/v6/a53813bbb3d23fed1933c612/latest/${start}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        const exchangeRate = data.rates[target];
+        const convertedAmount = amount * exchangeRate;
+        return `Converted Amount: ${convertedAmount.toFixed(2)} ${target}`;
+    }
+</script>

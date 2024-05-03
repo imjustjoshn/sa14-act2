@@ -1,0 +1,51 @@
+<h1>ToDo List</h1>
+
+<form id="tasks">
+    <input type="text" id="newTask" placeholder="Enter a task">
+    <button type="submit">Add Task</button>
+</form>
+
+<ul id="taskList">
+
+</ul>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tasks = document.getElementById('tasks');
+        const new_task = document.getElementById('newTask');
+        const task_list = document.getElementById('taskList');
+
+        tasks.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                addTask(taskText);
+                taskInput.value = '';
+            }
+        });
+
+        function addTask(taskText) {
+            const li = document.createElement('li');
+            li.textContent = taskText;
+
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.addEventListener('click', function() {
+                const edit = prompt('Edit:', taskText);
+                if (edit !== null) {
+                    li.textContent = edit;
+                }
+            });
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', function() {
+                li.remove();
+            });
+
+            li.appendChild(editButton);
+            li.appendChild(deleteButton);
+            taskList.appendChild(li);
+        }
+    });
+</script>

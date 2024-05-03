@@ -1,0 +1,33 @@
+<style>
+    #box {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(0, 255, 217);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: transform 0.5s ease-in-out;
+    }
+</style>
+
+<div id="box"></div>
+<button id="control">Move the box</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const box = document.getElementById('box');
+        const controlButton = document.getElementById('control');
+        let isMoved = false;
+
+        controlButton.addEventListener('click', function() {
+            if (!isMoved) {
+                box.style.transform = 'translate(200px, 200px)';
+            } else {
+                box.style.transform = 'translate(0, 0)'; 
+            }
+            isMoved = !isMoved;
+        });
+    });
+
+</script>
